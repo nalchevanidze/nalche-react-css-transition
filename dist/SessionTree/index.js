@@ -64,10 +64,11 @@ exports.default = {
     clear: function clear() {
         resetSession();
     },
-    set: function set(node, props) {
+    set: function set(node, props, comp) {
         sessionCache.push({
             node: node,
             props: props,
+            comp: comp,
             children: []
         });
     },

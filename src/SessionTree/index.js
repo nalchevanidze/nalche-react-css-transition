@@ -45,11 +45,12 @@ export default {
     clear() {
         resetSession();
     },
-    set(node, props) {
+    set(node, props, comp) {
         sessionCache.push(
             {
                 node,
                 props,
+                comp,
                 children: []
             }
         );

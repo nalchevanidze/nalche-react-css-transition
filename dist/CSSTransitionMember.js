@@ -26,6 +26,17 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var styleGenerator = function styleGenerator() {
+    var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    return {
+        transitionDuration: duration * 1000 + "ms",
+        transitionDelay: delay * 1000 + "ms"
+    };
+};
+
+var defaultStyle = styleGenerator();
+
 var CSSTransition = function (_React$Component) {
     _inherits(CSSTransition, _React$Component);
 
@@ -40,13 +51,30 @@ var CSSTransition = function (_React$Component) {
         value: function componentDidMount() {
             this.dom = _reactDom2.default.findDOMNode(this);
             //register element in session database
-            _SessionTree2.default.set(this.dom, this.props);
+            _SessionTree2.default.set(this.dom, this.props, this);
         }
     }, {
         key: "componentWillUpdate",
         value: function componentWillUpdate() {
             //remove old elements from session database
-            _SessionTree2.default.set(this.dom, this.props);
+            _SessionTree2.default.set(this.dom, this.props, this);
+        }
+    }, {
+        key: "generateClassName",
+        value: function generateClassName(mode) {
+            return [this.props.className, this.props.name + "-" + mode].filter(function (e) {
+                return !!e;
+            }).join(" ");
+        }
+    }, {
+        key: "setTransitionAt",
+        value: function setTransitionAt(delay) {
+
+            Object.assign(this.dom.style, styleGenerator(
+            //duration
+            this.props.time, delay));
+
+            this.dom.className = this.generateClassName("end");
         }
     }, {
         key: "render",
@@ -54,16 +82,15 @@ var CSSTransition = function (_React$Component) {
             var _props = this.props,
                 _props$tagName = _props.tagName,
                 Tag = _props$tagName === undefined ? "span" : _props$tagName,
-                className = _props.className,
-                children = _props.children,
-                name = _props.name;
+                children = _props.children;
             // set animation-start class for animation
 
             return _react2.default.createElement(
                 Tag,
                 {
-                    className: className + " " + name + "-start",
-                    id: _SessionTree2.default.id
+                    className: this.generateClassName("start"),
+                    id: _SessionTree2.default.id,
+                    style: defaultStyle
                 },
                 children
             );
