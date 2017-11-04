@@ -76,11 +76,9 @@ var CSSTransition = function (_React$Component) {
     }, {
         key: "setTransitionAt",
         value: function setTransitionAt(delay) {
-
             Object.assign(this.dom.style, styleGenerator(
             //duration
             this.props.time, delay));
-
             this.dom.className = this.generateClassName("end");
         }
     }, {

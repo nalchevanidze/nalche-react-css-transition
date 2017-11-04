@@ -11,9 +11,6 @@ export default function findParentNode(element) {
                 case id:
                     node = parentNode;
                     break;
-                case `${id}CONTAINER`:
-                    node = "main";
-                    break;
                 default:
                     find(parentNode);
                     break;

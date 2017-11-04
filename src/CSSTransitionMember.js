@@ -34,16 +34,13 @@ class CSSTransition extends React.Component<*, Props> {
         this.dom.style = defaultStyle;
         SessionTree.set(this);
     }
-
     generateClassName(mode) {
         return [
             this.props.className,
             this.props.name + "-" + mode
         ].filter(e => !!e).join(" ");
     }
-
     setTransitionAt(delay) {
-
         Object.assign(
             this.dom.style,
             styleGenerator(
@@ -52,9 +49,7 @@ class CSSTransition extends React.Component<*, Props> {
                 delay
             )
         );
-
         this.dom.className = this.generateClassName("end");
-
     }
     render() {
         const {

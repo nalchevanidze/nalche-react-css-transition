@@ -14,6 +14,10 @@ var _SessionTree = require("./SessionTree");
 
 var _SessionTree2 = _interopRequireDefault(_SessionTree);
 
+var _reactDom = require("react-dom");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32,10 +36,18 @@ var CSSTransitionSession = function (_React$Component) {
     }
 
     _createClass(CSSTransitionSession, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.dom = _reactDom2.default.findDOMNode(this);
+            //remove old elements from session database
+            _SessionTree2.default.reset(this);
+        }
+    }, {
         key: "componentWillUpdate",
         value: function componentWillUpdate() {
+            this.dom = _reactDom2.default.findDOMNode(this);
             //remove old elements from session database
-            _SessionTree2.default.clear(this.props);
+            _SessionTree2.default.reset(this);
         }
     }, {
         key: "componentDidUpdate",
@@ -56,7 +68,7 @@ var CSSTransitionSession = function (_React$Component) {
                 Tag,
                 {
                     className: className,
-                    id: _SessionTree2.default.id + "CONTAINER"
+                    id: _SessionTree2.default.id
                 },
                 children
             );

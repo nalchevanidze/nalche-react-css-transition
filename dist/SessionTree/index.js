@@ -17,13 +17,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var id = (0, _randomName2.default)();
 var tree = void 0,
     sessionCache = void 0;
+sessionCache = [];
 
-function resetSession() {
-    sessionCache = [];
-    tree = {
-        node: null,
+function detachEvent(comp) {
+
+    return {
+        node: comp.dom,
+        props: comp.props,
+        comp: comp,
         children: []
     };
+}
+
+function resetSession(comp) {
+    tree = detachEvent(comp);
+    sessionCache = [tree];
 }
 
 function selectParentEvent(parentNode) {
@@ -36,14 +44,10 @@ function selectParentEvent(parentNode) {
 function setToParentEvent(element) {
     var parentNode = element.comp.transitionParentNode;
     // has no parent Member
-    if (parentNode === "main") {
-        tree.children.push(element);
-    } else {
-        var parentEvent = selectParentEvent(parentNode);
-        if (parentEvent) {
-            // has parent in list
-            parentEvent.children.push(element);
-        }
+    var parentEvent = selectParentEvent(parentNode);
+    if (parentEvent) {
+        // has parent in list
+        parentEvent.children.push(element);
     }
 }
 
@@ -54,25 +58,18 @@ function organiseEvents() {
     });
 }
 
-resetSession();
 exports.default = {
-    clear: function clear() {
-        resetSession();
-    },
+
+    reset: resetSession,
+
     set: function set(comp) {
-        sessionCache.push({
-            node: comp.dom,
-            props: comp.props,
-            comp: comp,
-            children: []
-        });
+        sessionCache.push(detachEvent(comp));
     },
 
     id: id,
     play: function play() {
-
         organiseEvents();
-        console.log(tree, sessionCache);
+        console.log(tree);
         (0, _animation2.default)(tree);
     }
 };

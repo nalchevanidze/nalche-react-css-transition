@@ -3,13 +3,21 @@ import animation from "../animation";
 
 const id = randomName();
 let tree, sessionCache;
+sessionCache = [];
 
-function resetSession() {
-    sessionCache = [];
-    tree = {
-        node: null,
+function detachEvent(comp) {
+
+    return {
+        node: comp.dom,
+        props: comp.props,
+        comp,
         children: []
     };
+}
+
+function resetSession(comp) {
+    tree = detachEvent(comp);
+    sessionCache = [tree];
 }
 
 function selectParentEvent(parentNode) {
@@ -23,15 +31,12 @@ function selectParentEvent(parentNode) {
 function setToParentEvent(element) {
     let parentNode = element.comp.transitionParentNode;
     // has no parent Member
-    if (parentNode === "main") {
-        tree.children.push(element);
-    } else {
-        let parentEvent = selectParentEvent(parentNode);
-        if (parentEvent) {
-            // has parent in list
-            parentEvent.children.push(element);
-        }
+    let parentEvent = selectParentEvent(parentNode);
+    if (parentEvent) {
+        // has parent in list
+        parentEvent.children.push(element);
     }
+
 }
 
 function organiseEvents() {
@@ -41,26 +46,17 @@ function organiseEvents() {
     });
 }
 
-resetSession();
 export default {
-    clear() {
-        resetSession();
-    },
+
+    reset: resetSession,
+
     set(comp) {
-        sessionCache.push(
-            {
-                node: comp.dom,
-                props: comp.props,
-                comp,
-                children: []
-            }
-        );
+        sessionCache.push( detachEvent(comp));
     },
     id,
     play() {
-
         organiseEvents();
-        console.log(tree, sessionCache);
+        console.log(tree);
         animation(tree);
     }
 };

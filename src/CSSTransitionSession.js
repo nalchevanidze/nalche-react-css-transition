@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import SessionTree from "./SessionTree";
+import ReactDOM from "react-dom";
 
 type Props = {
     time: number,
@@ -9,9 +10,17 @@ type Props = {
 };
 
 export default class CSSTransitionSession extends React.Component<*,Props > {
-    componentWillUpdate() {
+    
+    componentDidMount(){
+        this.dom = ReactDOM.findDOMNode(this);
         //remove old elements from session database
-        SessionTree.clear(this.props);
+        SessionTree.reset(this);
+    }
+    
+    componentWillUpdate() {
+        this.dom = ReactDOM.findDOMNode(this);
+        //remove old elements from session database
+        SessionTree.reset(this);
     }
     componentDidUpdate() {
         // play sesion animations
@@ -21,7 +30,7 @@ export default class CSSTransitionSession extends React.Component<*,Props > {
         const { tagName: Tag = "span", className, children } = this.props;
         return <Tag
             className={className}
-            id={SessionTree.id + "CONTAINER"}
+            id={SessionTree.id}
         >
             {
                 children
