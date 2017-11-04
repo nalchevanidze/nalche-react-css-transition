@@ -69,7 +69,6 @@ exports.default = {
     id: id,
     play: function play() {
         organiseEvents();
-        console.log(tree);
         (0, _animation2.default)(tree);
     }
 };

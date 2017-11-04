@@ -20,14 +20,15 @@ function findParentNode(element) {
     function find(_ref) {
         var parentNode = _ref.parentNode;
 
+
         if (parentNode) {
-            switch (parentNode.id) {
-                case id:
-                    node = parentNode;
-                    break;
-                default:
-                    find(parentNode);
-                    break;
+
+            if (parentNode.id === id) {
+
+                node = parentNode;
+            } else {
+
+                find(parentNode);
             }
         }
     }

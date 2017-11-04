@@ -56,7 +56,6 @@ export default {
     id,
     play() {
         organiseEvents();
-        console.log(tree);
         animation(tree);
     }
 };

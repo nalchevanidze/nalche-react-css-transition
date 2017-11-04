@@ -6,16 +6,21 @@ export default function findParentNode(element) {
     let node = null;
 
     function find({ parentNode }) {
+
         if (parentNode) {
-            switch (parentNode.id) {
-                case id:
-                    node = parentNode;
-                    break;
-                default:
-                    find(parentNode);
-                    break;
+
+            if (parentNode.id === id) {
+
+                node = parentNode;
+
+            } else {
+
+                find(parentNode);
+
             }
+
         }
+        
     }
 
     find(element);
