@@ -10,7 +10,9 @@ const LanguageInfo = () =>
         time={0.6}
         offset={0.6}
     >
-        <div className="lang" >
+        <div
+            className="lang" 
+        >
             {
                 [0, 0, 0].map((e, i) =>
                     <Skill id={"default"} level={Math.random() * 100} name={"name"} key={i} />

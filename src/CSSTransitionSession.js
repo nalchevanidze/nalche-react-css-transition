@@ -10,16 +10,12 @@ type Props = {
 
 export default class CSSTransitionSession extends React.Component<*,Props > {
     componentWillUpdate() {
-
         //remove old elements from session database
         SessionTree.clear(this.props);
-
     }
     componentDidUpdate() {
-
         // play sesion animations
         SessionTree.play(this.props);
-
     }
     render() {
         const { tagName: Tag = "span", className, children } = this.props;

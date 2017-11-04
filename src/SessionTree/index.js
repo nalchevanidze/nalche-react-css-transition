@@ -1,6 +1,5 @@
 import randomName from "./randomName";
 import animation from "../animation";
-import findParentNode from "./findParentNode";
 
 const id = randomName();
 let tree, sessionCache;
@@ -13,30 +12,32 @@ function resetSession() {
     };
 }
 
-function selectParent(parent) {
-    return sessionCache.filter(e => parent === e.node)[0];
+function selectParentEvent(parentNode) {
+
+    return sessionCache.filter(
+        event => parentNode === event.node
+    )[0];
+
 }
 
-function setToParent(element) {
-    let parent = findParentNode(element.node, id);
+function setToParentEvent(element) {
+    let parentNode = element.comp.transitionParentNode;
     // has no parent Member
-    if (parent === "main") {
+    if (parentNode === "main") {
         tree.children.push(element);
     } else {
-
-        let found = selectParent(parent);
-
-        if (found) {
+        let parentEvent = selectParentEvent(parentNode);
+        if (parentEvent) {
             // has parent in list
-            found.children.push(element);
+            parentEvent.children.push(element);
         }
     }
 }
 
 function organiseEvents() {
 
-    sessionCache.forEach((e) => {
-        setToParent(e);
+    sessionCache.forEach((event) => {
+        setToParentEvent(event);
     });
 }
 
@@ -45,11 +46,11 @@ export default {
     clear() {
         resetSession();
     },
-    set(node, props, comp) {
+    set(comp) {
         sessionCache.push(
             {
-                node,
-                props,
+                node: comp.dom,
+                props: comp.props,
                 comp,
                 children: []
             }
@@ -57,7 +58,9 @@ export default {
     },
     id,
     play() {
+
         organiseEvents();
+        console.log(tree, sessionCache);
         animation(tree);
     }
 };

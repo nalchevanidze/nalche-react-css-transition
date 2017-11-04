@@ -16,18 +16,23 @@ const styleGenerator = (
     transitionDelay: (delay * 1000) + "ms"
 });
 
+import findParentNode from "./SessionTree/findParentNode";
+
 const defaultStyle = styleGenerator();
 
 class CSSTransition extends React.Component<*, Props> {
 
     componentDidMount() {
         this.dom = ReactDOM.findDOMNode(this);
+        this.transitionParentNode = findParentNode(this.dom);
         //register element in session database
-        SessionTree.set(this.dom, this.props, this);
+        SessionTree.set(this);
     }
     componentWillUpdate() {
         //remove old elements from session database
-        SessionTree.set(this.dom, this.props, this);
+        this.dom.className = this.generateClassName("start");
+        this.dom.style = defaultStyle;
+        SessionTree.set(this);
     }
 
     generateClassName(mode) {
@@ -51,7 +56,6 @@ class CSSTransition extends React.Component<*, Props> {
         this.dom.className = this.generateClassName("end");
 
     }
-
     render() {
         const {
             tagName: Tag = "span",

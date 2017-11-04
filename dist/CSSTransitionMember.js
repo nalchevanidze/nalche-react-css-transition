@@ -18,6 +18,10 @@ var _SessionTree = require("./SessionTree");
 
 var _SessionTree2 = _interopRequireDefault(_SessionTree);
 
+var _findParentNode = require("./SessionTree/findParentNode");
+
+var _findParentNode2 = _interopRequireDefault(_findParentNode);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50,14 +54,17 @@ var CSSTransition = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             this.dom = _reactDom2.default.findDOMNode(this);
+            this.transitionParentNode = (0, _findParentNode2.default)(this.dom);
             //register element in session database
-            _SessionTree2.default.set(this.dom, this.props, this);
+            _SessionTree2.default.set(this);
         }
     }, {
         key: "componentWillUpdate",
         value: function componentWillUpdate() {
             //remove old elements from session database
-            _SessionTree2.default.set(this.dom, this.props, this);
+            this.dom.className = this.generateClassName("start");
+            this.dom.style = defaultStyle;
+            _SessionTree2.default.set(this);
         }
     }, {
         key: "generateClassName",

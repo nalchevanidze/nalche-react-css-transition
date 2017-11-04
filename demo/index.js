@@ -16,6 +16,12 @@ export default class Main extends React.Component {
             },
             10
         );
+        setInterval(
+            () => {
+                this.setState({ i: Math.random() });
+            },
+            1000*5
+        );
     }
     render() {
         return (

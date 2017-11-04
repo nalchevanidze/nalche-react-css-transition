@@ -1,22 +1,24 @@
+import SessionTree from "./index";
+const id = SessionTree.id;
 
-export default function findParentNode(element, id) {
+export default function findParentNode(element) {
 
     let node = null;
 
-    function find(c) {
-
-        if (c.parentNode) {
-            if (c.parentNode.id === id) {
-                node = c.parentNode;
-
-            } else if (c.parentNode.id === id + "CONTAINER") {
-                node = "main";
-            }
-            else {
-                find(c.parentNode);
+    function find({ parentNode }) {
+        if (parentNode) {
+            switch (parentNode.id) {
+                case id:
+                    node = parentNode;
+                    break;
+                case `${id}CONTAINER`:
+                    node = "main";
+                    break;
+                default:
+                    find(parentNode);
+                    break;
             }
         }
-
     }
 
     find(element);

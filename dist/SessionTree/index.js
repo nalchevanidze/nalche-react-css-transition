@@ -12,10 +12,6 @@ var _animation = require("../animation");
 
 var _animation2 = _interopRequireDefault(_animation);
 
-var _findParentNode = require("./findParentNode");
-
-var _findParentNode2 = _interopRequireDefault(_findParentNode);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var id = (0, _randomName2.default)();
@@ -30,32 +26,31 @@ function resetSession() {
     };
 }
 
-function selectParent(parent) {
-    return sessionCache.filter(function (e) {
-        return parent === e.node;
+function selectParentEvent(parentNode) {
+
+    return sessionCache.filter(function (event) {
+        return parentNode === event.node;
     })[0];
 }
 
-function setToParent(element) {
-    var parent = (0, _findParentNode2.default)(element.node, id);
+function setToParentEvent(element) {
+    var parentNode = element.comp.transitionParentNode;
     // has no parent Member
-    if (parent === "main") {
+    if (parentNode === "main") {
         tree.children.push(element);
     } else {
-
-        var found = selectParent(parent);
-
-        if (found) {
+        var parentEvent = selectParentEvent(parentNode);
+        if (parentEvent) {
             // has parent in list
-            found.children.push(element);
+            parentEvent.children.push(element);
         }
     }
 }
 
 function organiseEvents() {
 
-    sessionCache.forEach(function (e) {
-        setToParent(e);
+    sessionCache.forEach(function (event) {
+        setToParentEvent(event);
     });
 }
 
@@ -64,10 +59,10 @@ exports.default = {
     clear: function clear() {
         resetSession();
     },
-    set: function set(node, props, comp) {
+    set: function set(comp) {
         sessionCache.push({
-            node: node,
-            props: props,
+            node: comp.dom,
+            props: comp.props,
             comp: comp,
             children: []
         });
@@ -75,7 +70,9 @@ exports.default = {
 
     id: id,
     play: function play() {
+
         organiseEvents();
+        console.log(tree, sessionCache);
         (0, _animation2.default)(tree);
     }
 };

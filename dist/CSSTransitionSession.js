@@ -34,14 +34,12 @@ var CSSTransitionSession = function (_React$Component) {
     _createClass(CSSTransitionSession, [{
         key: "componentWillUpdate",
         value: function componentWillUpdate() {
-
             //remove old elements from session database
             _SessionTree2.default.clear(this.props);
         }
     }, {
         key: "componentDidUpdate",
         value: function componentDidUpdate() {
-
             // play sesion animations
             _SessionTree2.default.play(this.props);
         }
