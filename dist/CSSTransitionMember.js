@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require("react");
@@ -59,11 +61,16 @@ var CSSTransition = function (_React$Component) {
             _SessionTree2.default.set(this);
         }
     }, {
+        key: "setStyle",
+        value: function setStyle(style) {
+            Object.assign(this.dom.style, style);
+        }
+    }, {
         key: "componentWillUpdate",
         value: function componentWillUpdate() {
             //remove old elements from session database
             this.dom.className = this.generateClassName("start");
-            this.dom.style = defaultStyle;
+            this.setStyle(defaultStyle);
             _SessionTree2.default.set(this);
         }
     }, {
@@ -76,9 +83,7 @@ var CSSTransition = function (_React$Component) {
     }, {
         key: "setTransitionAt",
         value: function setTransitionAt(delay) {
-            Object.assign(this.dom.style, styleGenerator(
-            //duration
-            this.props.time, delay));
+            this.setStyle(styleGenerator(this.props.time, delay));
             this.dom.className = this.generateClassName("end");
         }
     }, {
@@ -87,15 +92,18 @@ var CSSTransition = function (_React$Component) {
             var _props = this.props,
                 _props$tagName = _props.tagName,
                 Tag = _props$tagName === undefined ? "span" : _props$tagName,
-                children = _props.children;
+                children = _props.children,
+                style = _props.style;
             // set animation-start class for animation
+
+            var mainstyle = style ? _extends({}, defaultStyle, style) : defaultStyle;
 
             return _react2.default.createElement(
                 Tag,
                 {
                     className: this.generateClassName("start"),
                     id: _SessionTree2.default.id,
-                    style: defaultStyle
+                    style: mainstyle
                 },
                 children
             );

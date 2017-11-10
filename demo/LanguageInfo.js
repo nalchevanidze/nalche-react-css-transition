@@ -9,6 +9,9 @@ const LanguageInfo = () =>
         name="post-anim"
         time={0.6}
         offset={0.6}
+        style={{
+            color:"blue"
+        }}
     >
         <div
             className="lang" 

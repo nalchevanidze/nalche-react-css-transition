@@ -28,10 +28,18 @@ class CSSTransition extends React.Component<*, Props> {
         //register element in session database
         SessionTree.set(this);
     }
+
+    setStyle(style) {
+        Object.assign(
+            this.dom.style,
+            style
+        );
+    }
+
     componentWillUpdate() {
         //remove old elements from session database
         this.dom.className = this.generateClassName("start");
-        this.dom.style = defaultStyle;
+        this.setStyle(defaultStyle);
         SessionTree.set(this);
     }
     generateClassName(mode) {
@@ -41,26 +49,31 @@ class CSSTransition extends React.Component<*, Props> {
         ].filter(e => !!e).join(" ");
     }
     setTransitionAt(delay) {
-        Object.assign(
-            this.dom.style,
-            styleGenerator(
-                //duration
-                this.props.time,
-                delay
-            )
+        this.setStyle(
+            styleGenerator( this.props.time, delay )
         );
         this.dom.className = this.generateClassName("end");
     }
     render() {
         const {
             tagName: Tag = "span",
-            children
+            children,
+            style
         } = this.props;
         // set animation-start class for animation
+        let mainstyle = style ?
+            {
+                ...defaultStyle,
+                ...style
+            }
+            :
+            defaultStyle
+            ;
+
         return <Tag
             className={this.generateClassName("start")}
             id={SessionTree.id}
-            style={defaultStyle}
+            style={mainstyle}
         >
             {
                 children
