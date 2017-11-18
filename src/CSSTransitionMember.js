@@ -56,7 +56,7 @@ class CSSTransition extends React.Component<*, Props> {
     }
     render() {
         const {
-            tagName: Tag = "span",
+            tagName: Tag = "div",
             children,
             style
         } = this.props;

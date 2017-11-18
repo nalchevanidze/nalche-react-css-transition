@@ -27,7 +27,7 @@ export default class CSSTransitionSession extends React.Component<*,Props > {
         SessionTree.play(this.props);
     }
     render() {
-        const { tagName: Tag = "span", className, children } = this.props;
+        const { tagName: Tag = "div", className, children } = this.props;
         return <Tag
             className={className}
             id={SessionTree.id}

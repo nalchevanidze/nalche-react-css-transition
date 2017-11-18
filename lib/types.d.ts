@@ -1,9 +1,22 @@
 import * as React from "react";
-import { StatelessComponent, ComponentClass, PureComponent, ReactElement } from "react";
+import { ComponentClass, ReactElement } from "react";
 
+export interface CSSTransitionMemberProps {
+    name:string,
+    time:number,
+    tagName?: string,
+    className?:string,
+    offset:number,
+    inner?:number,
+    style?:{}
+}
 
+export class CSSTransitionMember extends React.Component<CSSTransitionMemberProps, {}> { }
 
-export type CSSTransitionMember<P> = ComponentClass<P>;
+export interface CSSTransitionSessionProps {
+    tagName?: string,
+    className?:string,
+    style?:{}
+}
 
-
-export type CSSTransitionSession<P> = ComponentClass<P>;
+export class CSSTransitionSession extends React.Component<CSSTransitionSessionProps, {}> { }
