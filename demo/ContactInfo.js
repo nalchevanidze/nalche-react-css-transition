@@ -1,5 +1,5 @@
 import React from "react";
-import { CSSTransitionMember } from "../index";
+import { CSSTransitionMember } from "../dist";
 import IconLogo from "./Icon";
 
 const ContactButton = () =>

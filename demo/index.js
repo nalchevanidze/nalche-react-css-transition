@@ -3,7 +3,7 @@ import PersonalInfo from "./PersonalInfo";
 import ContactInfo from "./ContactInfo";
 import LanguageInfo from "./LanguageInfo";
 import IconLogo from "./Icon";
-import { CSSTransitionSession, CSSTransitionMember } from "../index";
+import { CSSTransitionSession, CSSTransitionMember } from "../dist";
 
 export default class Main extends React.Component {
 
