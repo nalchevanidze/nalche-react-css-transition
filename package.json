@@ -1,12 +1,13 @@
 {
   "name": "nalche-react-css-transition",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "nalche-react-css-transition",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --hot --colors",
-    "minify": "webpack --config webpack-p.config.js -p"
+    "minify": "webpack --config webpack-p.config.js -p",
+    "gulp": "gulp"    
   },
   "types": "./lib/types.d.ts",
   "author": "David Nalchevanidze",

@@ -91,7 +91,7 @@ var CSSTransition = function (_React$Component) {
         value: function render() {
             var _props = this.props,
                 _props$tagName = _props.tagName,
-                Tag = _props$tagName === undefined ? "span" : _props$tagName,
+                Tag = _props$tagName === undefined ? "div" : _props$tagName,
                 children = _props.children,
                 style = _props.style;
             // set animation-start class for animation

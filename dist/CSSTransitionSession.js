@@ -60,7 +60,7 @@ var CSSTransitionSession = function (_React$Component) {
         value: function render() {
             var _props = this.props,
                 _props$tagName = _props.tagName,
-                Tag = _props$tagName === undefined ? "span" : _props$tagName,
+                Tag = _props$tagName === undefined ? "div" : _props$tagName,
                 className = _props.className,
                 children = _props.children;
 
