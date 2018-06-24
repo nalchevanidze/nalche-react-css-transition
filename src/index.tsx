@@ -4,13 +4,13 @@ import SessionTree from "./SessionTree";
 const session = new SessionTree();
 
 interface CSSTransitionMemberProps  {
-    time: number;
     name: string;
     session: string;
-    tagName: string, 
-    className: string, 
-    style: any,
-    children: any;
+    time?: number;
+    tagName?: string, 
+    className?: string, 
+    style?: any,
+    children?: any;
 };
 
 const styleGenerator = (
@@ -94,7 +94,6 @@ export class CSSTransitionMember extends React.Component< {} , CSSTransitionMemb
 }
 
 interface CSSTransitionSessionProps {
-    time: number;
     name: string;
     session: string;
     tagName: string, 

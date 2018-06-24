@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const IconedStatistic = () =>
+export default  () =>
     <svg viewBox="0 0 100 100" className="diagram">
         <circle
             cx={50}
@@ -18,6 +18,3 @@ const IconedStatistic = () =>
             fill={"none"}
         />
     </svg>;
-
-
-export default IconedStatistic;
