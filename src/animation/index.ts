@@ -1,7 +1,5 @@
 function listEnd(element, startTime = 0) {
-
     let fullOffset = startTime;
-
     element.children.forEach(
         (e) => {
             let offset = fullOffset;

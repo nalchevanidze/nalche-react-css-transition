@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Skill from "./Skills";
-import { CSSTransitionMember } from "../src";
+import { CSSTransitionMember } from "../dist";
 
 const LanguageInfo = () =>
     <CSSTransitionMember

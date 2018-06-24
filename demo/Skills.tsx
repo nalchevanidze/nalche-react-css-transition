@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Icon from "./Icon";
-import { CSSTransitionMember } from "../src";
+import { CSSTransitionMember } from "../dist";
 
 const SkillSingle = () =>
     <CSSTransitionMember
