@@ -6,23 +6,6 @@ import IconLogo from "./Icon";
 import { CSSTransitionSession, CSSTransitionMember } from "../dist";
 
 export default class Main extends React.Component<any,any> {
-
-    constructor(props) {
-        super(props);
-        this.state = {};
-        setTimeout(
-            () => {
-                this.setState({ i: Math.random() });
-            },
-            10
-        );
-        setInterval(
-            () => {
-                this.setState({ i: Math.random() });
-            },
-            1000*5
-        );
-    }
     render() {
         return (
             <div className='home page' >

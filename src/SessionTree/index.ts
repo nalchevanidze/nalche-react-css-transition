@@ -6,13 +6,20 @@ function randomID() {
     ).join("");
 }
 
-function detachEvent(comp) {
-    return {
-        node: comp.dom,
-        props: comp.props,
-        comp,
-        children: []
-    };
+class AnmationEvenet  {
+    node;
+    props;
+    comp;
+    children = [];
+    parent;
+
+    constructor(comp){
+        this.node = comp.dom;
+        this.props = comp.props;
+        this.comp = comp;
+        this.parent = comp.transitionParentNode;
+    }
+  
 }
 export default class SessionTree {
     public id : string = randomID();
@@ -21,38 +28,28 @@ export default class SessionTree {
 
     private selectParentEvent(parentNode)  {
         return this.sessionCache.filter(
-            event => parentNode === event.node
+            (event:any) => parentNode === event.node
         )[0];
     }
 
-    private setToParentEvent(element) : void {
-        let parentNode = element.comp.transitionParentNode;
-        // has no parent Member
-        let parentEvent = this.selectParentEvent(parentNode);
-        if (parentEvent) {
-            // has parent in list
+    private setToParentEvent = (element):void => {
+        const parentEvent = this.selectParentEvent(element.parent) || this.tree;
+        if(element.parent && parentEvent) {
             parentEvent.children.push(element);
         }
-    
-    }
-    
-    private organiseEvents() : void {
-        this.sessionCache.forEach((event) => {
-            this.setToParentEvent(event);
-        });
     }
 
-    public reset(comp) : void {
-        this.tree = detachEvent(comp);
-        this.sessionCache = [this.tree];
+    public reset() : void {
+        this.tree = new AnmationEvenet({});
+        this.sessionCache = [];
     };
 
-    public set( comp: any ) : void {
-        this.sessionCache.push( detachEvent(comp));
+    public addMember( member: React.Component ) : void {
+        this.sessionCache.push( new AnmationEvenet(member));
     }
 
     public play() : void {
-        this.organiseEvents();
+        this.sessionCache.forEach( this.setToParentEvent )
         animation(this.tree);
     }
 };

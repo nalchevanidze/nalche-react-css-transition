@@ -34,7 +34,7 @@ export class CSSTransitionMember extends React.Component< {} , CSSTransitionMemb
         this.dom = ReactDOM.findDOMNode(this);
         this.transitionParentNode = findParentNode( session.id , this.dom);
         //register element in session database
-        session.set(this);
+        session.addMember(this);
     }
 
     private setStyle(style) {
@@ -48,7 +48,7 @@ export class CSSTransitionMember extends React.Component< {} , CSSTransitionMemb
         //remove old elements from session database
         this.dom.className = this.generateClassName("start");
         this.setStyle(defaultStyle);
-        session.set(this);
+        session.addMember(this);
     }
 
     public generateClassName = (mode) => {
@@ -104,21 +104,16 @@ interface CSSTransitionSessionProps {
 export class CSSTransitionSession extends React.Component<{}, CSSTransitionSessionProps > {
     public dom: any;
     props: CSSTransitionSessionProps;
+
     public componentDidMount(){
-        this.dom = ReactDOM.findDOMNode(this);
-        //remove old elements from session database
-        session.reset(this);
+        session.play();       
     }
-    public componentWillUpdate() {
-        this.dom = ReactDOM.findDOMNode(this);
-        //remove old elements from session database
-        session.reset(this);
-    }
+
     public componentDidUpdate() {
-        // play sesion animations
         session.play();
     }
     public render() {
+        session.reset();
         const { tagName: Tag = "div", className, children } = this.props;
         return <Tag
             className={className}

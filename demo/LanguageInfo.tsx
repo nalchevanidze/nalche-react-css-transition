@@ -25,15 +25,15 @@ const Skill =  () => (
         inner={0.4}
     >
         <p> bla bla </p>
-        <ul>
+        <div>
             {
                 [0, 0, 0, 0].map((e, i) =>
-                    <li key={i} >
+                    <div key={i} >
                         <SkillSingle />
-                    </li>
+                    </div>
                 )
             }
-        </ul>
+        </div>
     </CSSTransitionMember >
 );
 
