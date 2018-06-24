@@ -39,31 +39,26 @@ var CSSTransitionMember = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.generateClassName = function (mode) {
             var _a = _this.props, className = _a.className, name = _a.name;
-            return [
-                className,
-                name + "-" + mode
-            ].filter(function (e) { return !!e; }).join(" ");
+            return [className, name + "-" + mode].filter(function (e) { return !!e; }).join(" ");
+        };
+        _this.setTransitionAt = function (delay) {
+            _this.setStyle(styleGenerator(_this.props.time, delay));
+            _this.dom.className = _this.generateClassName("end");
         };
         return _this;
     }
     CSSTransitionMember.prototype.componentDidMount = function () {
         this.dom = ReactDOM.findDOMNode(this);
-        this.transitionParentNode = findParentNode_1["default"](session.id, this.dom);
-        //register element in session database
+        this.parent = findParentNode_1["default"](session.id, this.dom);
         session.addMember(this);
     };
     CSSTransitionMember.prototype.setStyle = function (style) {
         Object.assign(this.dom.style, style);
     };
     CSSTransitionMember.prototype.componentWillUpdate = function () {
-        //remove old elements from session database
         this.dom.className = this.generateClassName("start");
         this.setStyle(defaultStyle);
         session.addMember(this);
-    };
-    CSSTransitionMember.prototype.setTransitionAt = function (delay) {
-        this.setStyle(styleGenerator(this.props.time, delay));
-        this.dom.className = this.generateClassName("end");
     };
     CSSTransitionMember.prototype.render = function () {
         var _a = this.props, _b = _a.tagName, Tag = _b === void 0 ? "div" : _b, children = _a.children, style = _a.style;

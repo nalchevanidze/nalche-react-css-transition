@@ -1,20 +1,22 @@
 function listEnd(element, startTime = 0) {
     let fullOffset = startTime;
     element.children.forEach(
-        (e) => {
+
+        (eventNode) => {
             let offset = fullOffset;
 
-            if (e.comp) {
-                e.comp.setTransitionAt(offset);
+            if (eventNode.setTransitionAt) {
+                eventNode.setTransitionAt(offset);
             }
 
-            if (e.children.length > 0) {
-                let delay = e.props.inner || 0;
-                listEnd(e, fullOffset + delay);
+            if (eventNode.children.length > 0) {
+                let delay = eventNode.props.inner || 0;
+                listEnd(eventNode, fullOffset + delay);
             }
 
-            fullOffset = fullOffset + e.props.offset;
+            fullOffset = fullOffset + eventNode.props.offset;
         }
+
     );
 }
 

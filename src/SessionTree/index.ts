@@ -12,12 +12,14 @@ class AnmationEvenet  {
     comp;
     children = [];
     parent;
+    setTransitionAt: (delay: number) => void;
 
     constructor(comp){
         this.node = comp.dom;
         this.props = comp.props;
         this.comp = comp;
-        this.parent = comp.transitionParentNode;
+        this.parent = comp.parent;
+        this.setTransitionAt = comp.setTransitionAt;
     }
   
 }

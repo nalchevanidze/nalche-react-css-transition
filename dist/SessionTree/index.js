@@ -10,7 +10,8 @@ var AnmationEvenet = /** @class */ (function () {
         this.node = comp.dom;
         this.props = comp.props;
         this.comp = comp;
-        this.parent = comp.transitionParentNode;
+        this.parent = comp.parent;
+        this.setTransitionAt = comp.setTransitionAt;
     }
     return AnmationEvenet;
 }());

@@ -27,25 +27,20 @@ const defaultStyle = styleGenerator();
 
 export class CSSTransitionMember extends React.Component< {} , CSSTransitionMemberProps > {
     dom: any;
-    transitionParentNode: any;
+    parent: any;
     props: CSSTransitionMemberProps;
 
     public componentDidMount() {
         this.dom = ReactDOM.findDOMNode(this);
-        this.transitionParentNode = findParentNode( session.id , this.dom);
-        //register element in session database
+        this.parent = findParentNode( session.id , this.dom);
         session.addMember(this);
     }
 
     private setStyle(style) {
-        Object.assign(
-            this.dom.style,
-            style
-        );
+        Object.assign( this.dom.style,  style );
     }
 
     public componentWillUpdate() {
-        //remove old elements from session database
         this.dom.className = this.generateClassName("start");
         this.setStyle(defaultStyle);
         session.addMember(this);
@@ -53,18 +48,16 @@ export class CSSTransitionMember extends React.Component< {} , CSSTransitionMemb
 
     public generateClassName = (mode) => {
         const { className, name } = this.props;
-        return [
-            className,
-            name + "-" + mode
-        ].filter(e => !!e).join(" ");
+        return [className, name + "-" + mode].filter(e => !!e ).join(" ");
     }
 
-    public setTransitionAt(delay) {
+    public setTransitionAt = (delay: number): void => {
         this.setStyle(
             styleGenerator( this.props.time, delay )
         );
         this.dom.className = this.generateClassName("end");
     }
+    
     public render() {
         const {
             tagName: Tag = "div",
@@ -102,13 +95,10 @@ interface CSSTransitionSessionProps {
 };
 
 export class CSSTransitionSession extends React.Component<{}, CSSTransitionSessionProps > {
-    public dom: any;
     props: CSSTransitionSessionProps;
-
     public componentDidMount(){
         session.play();       
     }
-
     public componentDidUpdate() {
         session.play();
     }
