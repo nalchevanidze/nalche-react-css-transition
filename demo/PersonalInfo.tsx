@@ -1,5 +1,5 @@
-import React from "react";
-import { CSSTransitionMember } from "../dist";
+import * as React from 'react';
+import { CSSTransitionMember } from "../src";
 
 const PersonalSample = () =>
     <CSSTransitionMember
@@ -7,6 +7,11 @@ const PersonalSample = () =>
         name="post-anim"
         time={0.3}
         offset={0.2}
+        style={{
+            flexBasis: "25%" ,
+            textAlign: "center",
+            padding: 0,
+        }}
     >
         <CSSTransitionMember
             tagName="div"
@@ -32,7 +37,11 @@ const PersonalInfo = () =>
         time={0.5}
         offset={0.5}
         name="post-anim"
-        className="personal-info"
+        style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-around"
+        }}
     >
         {
             [0,0,0,0].map((e, i) => <PersonalSample key={i} />)

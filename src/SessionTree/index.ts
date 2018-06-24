@@ -1,9 +1,15 @@
-import randomName from "./randomName";
 import animation from "../animation";
 
-const id = randomName();
 let tree, sessionCache;
 sessionCache = [];
+
+function randomID() {
+
+    return "ANIMATION_Session" + [0, 0, 0, 0, 0, 0, 0].map(
+        () => String.fromCharCode(65 + Math.random() * 25)
+    ).join("");
+
+}
 
 function detachEvent(comp) {
 
@@ -15,10 +21,7 @@ function detachEvent(comp) {
     };
 }
 
-function resetSession(comp) {
-    tree = detachEvent(comp);
-    sessionCache = [tree];
-}
+
 
 function selectParentEvent(parentNode) {
 
@@ -46,16 +49,25 @@ function organiseEvents() {
     });
 }
 
-export default {
+export class SessionTree {
 
-    reset: resetSession,
+    public id : string = randomID();
 
-    set(comp) {
+    public reset(comp) : void {
+        tree = detachEvent(comp);
+        sessionCache = [tree];
+    };
+
+    public set( comp: any ) : void {
         sessionCache.push( detachEvent(comp));
-    },
-    id,
-    play() {
+    }
+
+    public play() : void {
         organiseEvents();
         animation(tree);
     }
 };
+
+
+
+export default new SessionTree;

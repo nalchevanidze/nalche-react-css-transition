@@ -1,13 +1,13 @@
 const gulp = require("gulp");
-const babel = require("gulp-babel");
+const ts = require("gulp-typescript");
+const tsProject = ts.createProject("tsconfig.json");
 
-gulp.task("babel", function () {
-    gulp.src("src/**/*.js")
-        .pipe(babel({ presets: ["es2015", "stage-3"]}))
-        .on("error", console.error.bind(console))
-        .pipe(gulp.dest("dist/"));
-
+gulp.task("ts", function() {
+    return gulp.src(["src/**/*.tsx","src/**/*.ts"])
+        .pipe(tsProject())
+        .pipe(gulp.dest("dist"));
 });
 
-gulp.task("default", ["babel"]);
-gulp.watch("src/**/*.js", ["babel"]);
+gulp.task("default", ["ts"]);
+gulp.watch("src/**/*.tsx", ["ts"]);
+gulp.watch("src/**/*.ts", ["ts"]);

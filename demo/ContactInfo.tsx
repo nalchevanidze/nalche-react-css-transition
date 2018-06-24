@@ -1,5 +1,5 @@
-import React from "react";
-import { CSSTransitionMember } from "../dist";
+import * as React from 'react';
+import { CSSTransitionMember } from '../src';
 import IconLogo from "./Icon";
 
 const ContactButton = () =>
@@ -21,9 +21,17 @@ const ContactInfo = () =>
         name="post-anim"
         time={0.1}
         offset={0}
-        className="contact"
+        style={{
+            width: "90%",
+            margin:"60px 5%",
+        }}
     >
-        <nav>
+        <nav
+            style={{
+                display: "flex",
+                justifyContent: "space-around"
+            }}
+        >
             {
                 [0, 0, 0, 0].map(
                     (e, i) => <ContactButton key={i} />

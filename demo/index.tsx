@@ -1,11 +1,11 @@
-import React from "react";
+import * as React from 'react';
 import PersonalInfo from "./PersonalInfo";
 import ContactInfo from "./ContactInfo";
 import LanguageInfo from "./LanguageInfo";
 import IconLogo from "./Icon";
-import { CSSTransitionSession, CSSTransitionMember } from "../dist";
+import { CSSTransitionSession, CSSTransitionMember } from "../src";
 
-export default class Main extends React.Component {
+export default class Main extends React.Component<any,any> {
 
     constructor(props) {
         super(props);

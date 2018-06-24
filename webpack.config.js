@@ -1,5 +1,3 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const Loaders = require("./config/webpack/loaders");
 module.exports = {
     devServer: {
         contentBase: "./public",
@@ -10,7 +8,7 @@ module.exports = {
     entry: {
         app: [
             "babel-polyfill",
-            "./preview.js"
+            "./preview.tsx"
         ]
     },
     output: {
@@ -21,13 +19,16 @@ module.exports = {
         moduleExtensions: ["-loader"]
     },
     module: {
-        rules: Loaders
+        rules: [{
+            test: /\.tsx?$/,
+            use: "ts-loader",
+            exclude: /node_modules/
+        }]
     },
 
     resolve: {
-        extensions: [".js", ".svg", ".json", ".jsx"]
+        extensions: [".js", "jsx", ".ts", ".tsx"]
     },
-    plugins: [
-        new ExtractTextPlugin("./public/app.css")
-    ]
+
+    mode:"development"
 };

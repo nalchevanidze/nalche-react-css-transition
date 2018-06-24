@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from 'react';
 import Skill from "./Skills";
-import { CSSTransitionMember } from "../dist";
+import { CSSTransitionMember } from "../src";
 
 const LanguageInfo = () =>
     <CSSTransitionMember
@@ -13,7 +13,10 @@ const LanguageInfo = () =>
         }}
     >
         <div
-            className="lang" 
+            style={{
+                display: "flex",
+                justifyContent: "space-around"
+            }}
         >
             {
                 [0, 0, 0].map((e, i) =>

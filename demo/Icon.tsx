@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from 'react';
 
 const IconedStatistic = () =>
     <svg viewBox="0 0 100 100" className="diagram">
