@@ -1,6 +1,41 @@
 import * as React from 'react';
-import Skill from "./Skills";
 import { CSSTransitionMember } from "../dist";
+import Icon from "./Icon";
+
+const SkillSingle = () =>
+    <CSSTransitionMember
+        tagName="div"
+        name={"logolines"}
+        session="diagram"
+        time={0.5}
+        offset={0.25}
+        className="s-list"
+    >
+        <Icon />
+        <p>balaafasgds</p>
+    </CSSTransitionMember>
+    ;
+
+const Skill =  () => (
+    <CSSTransitionMember
+        tagName="section"
+        name="scale-anim"
+        time={0.6}
+        offset={0.6}
+        inner={0.4}
+    >
+        <p> bla bla </p>
+        <ul>
+            {
+                [0, 0, 0, 0].map((e, i) =>
+                    <li key={i} >
+                        <SkillSingle />
+                    </li>
+                )
+            }
+        </ul>
+    </CSSTransitionMember >
+);
 
 const LanguageInfo = () =>
     <CSSTransitionMember
@@ -20,7 +55,7 @@ const LanguageInfo = () =>
         >
             {
                 [0, 0, 0].map((e, i) =>
-                    <Skill id={"default"} level={Math.random() * 100} name={"name"} key={i} />
+                    <Skill key={i} />
                 )
             }
         </div>

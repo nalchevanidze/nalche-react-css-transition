@@ -9,7 +9,7 @@ const ContactButton = () =>
             time={0.2}
             offset={0.1}
         >
-            <IconLogo id={"default"} />
+            <IconLogo />
             <p className='info'>bla bla</p>
         </CSSTransitionMember>
     </a>

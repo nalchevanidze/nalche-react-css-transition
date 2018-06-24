@@ -34,7 +34,7 @@ export default class Main extends React.Component<any,any> {
                             time={2}
                             offset={0.5}
                         >
-                            <IconLogo id="logo" />
+                            <IconLogo />
                         </CSSTransitionMember>
                     </div>
                     <PersonalInfo />
