@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import SessionTree from "./SessionTree";
+const session = new SessionTree();
 
 interface CSSTransitionMemberProps  {
     time: number;
@@ -31,9 +32,9 @@ export class CSSTransitionMember extends React.Component< {} , CSSTransitionMemb
 
     public componentDidMount() {
         this.dom = ReactDOM.findDOMNode(this);
-        this.transitionParentNode = findParentNode(this.dom);
+        this.transitionParentNode = findParentNode( session.id , this.dom);
         //register element in session database
-        SessionTree.set(this);
+        session.set(this);
     }
 
     private setStyle(style) {
@@ -47,7 +48,7 @@ export class CSSTransitionMember extends React.Component< {} , CSSTransitionMemb
         //remove old elements from session database
         this.dom.className = this.generateClassName("start");
         this.setStyle(defaultStyle);
-        SessionTree.set(this);
+        session.set(this);
     }
 
     public generateClassName = (mode) => {
@@ -82,7 +83,7 @@ export class CSSTransitionMember extends React.Component< {} , CSSTransitionMemb
 
         return <Tag
             className={this.generateClassName("start")}
-            id={SessionTree.id}
+            id={session.id}
             style={mainstyle}
         >
             {
@@ -107,22 +108,22 @@ export class CSSTransitionSession extends React.Component<{}, CSSTransitionSessi
     public componentDidMount(){
         this.dom = ReactDOM.findDOMNode(this);
         //remove old elements from session database
-        SessionTree.reset(this);
+        session.reset(this);
     }
     public componentWillUpdate() {
         this.dom = ReactDOM.findDOMNode(this);
         //remove old elements from session database
-        SessionTree.reset(this);
+        session.reset(this);
     }
     public componentDidUpdate() {
         // play sesion animations
-        SessionTree.play();
+        session.play();
     }
     public render() {
         const { tagName: Tag = "div", className, children } = this.props;
         return <Tag
             className={className}
-            id={SessionTree.id}
+            id={session.id}
         >
             {
                 children

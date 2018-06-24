@@ -1,18 +1,12 @@
 import animation from "../animation";
 
-let tree, sessionCache;
-sessionCache = [];
-
 function randomID() {
-
     return "ANIMATION_Session" + [0, 0, 0, 0, 0, 0, 0].map(
         () => String.fromCharCode(65 + Math.random() * 25)
     ).join("");
-
 }
 
 function detachEvent(comp) {
-
     return {
         node: comp.dom,
         props: comp.props,
@@ -20,54 +14,45 @@ function detachEvent(comp) {
         children: []
     };
 }
+export default class SessionTree {
+    public id : string = randomID();
+    private tree;
+    private sessionCache = [];
 
-
-
-function selectParentEvent(parentNode) {
-
-    return sessionCache.filter(
-        event => parentNode === event.node
-    )[0];
-
-}
-
-function setToParentEvent(element) {
-    let parentNode = element.comp.transitionParentNode;
-    // has no parent Member
-    let parentEvent = selectParentEvent(parentNode);
-    if (parentEvent) {
-        // has parent in list
-        parentEvent.children.push(element);
+    private selectParentEvent(parentNode)  {
+        return this.sessionCache.filter(
+            event => parentNode === event.node
+        )[0];
     }
 
-}
-
-function organiseEvents() {
-
-    sessionCache.forEach((event) => {
-        setToParentEvent(event);
-    });
-}
-
-export class SessionTree {
-
-    public id : string = randomID();
+    private setToParentEvent(element) : void {
+        let parentNode = element.comp.transitionParentNode;
+        // has no parent Member
+        let parentEvent = this.selectParentEvent(parentNode);
+        if (parentEvent) {
+            // has parent in list
+            parentEvent.children.push(element);
+        }
+    
+    }
+    
+    private organiseEvents() : void {
+        this.sessionCache.forEach((event) => {
+            this.setToParentEvent(event);
+        });
+    }
 
     public reset(comp) : void {
-        tree = detachEvent(comp);
-        sessionCache = [tree];
+        this.tree = detachEvent(comp);
+        this.sessionCache = [this.tree];
     };
 
     public set( comp: any ) : void {
-        sessionCache.push( detachEvent(comp));
+        this.sessionCache.push( detachEvent(comp));
     }
 
     public play() : void {
-        organiseEvents();
-        animation(tree);
+        this.organiseEvents();
+        animation(this.tree);
     }
 };
-
-
-
-export default new SessionTree;
